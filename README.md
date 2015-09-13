@@ -8,3 +8,7 @@ Need environ
 	APP_TOKEN
 
 This repo is used by [gorelease](https://github.com/gorelease/gorelease)
+
+## Get uptoken
+
+	http GET qntoken.herokuapp.com/uptoken private_token==abcdefg bucket==gorelease key==/hello
