@@ -11,9 +11,9 @@ import (
 	"github.com/qiniu/api.v6/rs"
 )
 
-func genUptoken(bucketName string, key string) string {
+func genUptoken(bucket string, key string) string {
 	policy := rs.PutPolicy{
-		Scope: bucketName + ":" + key,
+		Scope: bucket + ":" + key,
 	}
 	policy.Expires = uint32(time.Now().Unix()) + 1800
 	policy.FsizeLimit = 20 << 20 // 20M
@@ -29,10 +29,10 @@ func main() {
 	http.HandleFunc("/uptoken", func(w http.ResponseWriter, r *http.Request) {
 		privateToken := r.FormValue("private_token")
 		log.Println(privateToken)
-		scope := r.FormValue("scope")
+		bucket := r.FormValue("bucket")
 		key := r.FormValue("key")
 		if privateToken == os.Getenv("APP_TOKEN") {
-			io.WriteString(w, genUptoken(scope, key))
+			io.WriteString(w, genUptoken(bucket, key))
 			return
 		}
 		http.Error(w, "auth denied", 500)
