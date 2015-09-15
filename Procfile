@@ -1,1 +1,1 @@
-web: qnkeyserver
+web: qntoken
