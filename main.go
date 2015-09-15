@@ -64,8 +64,8 @@ func main() {
 			http.Error(w, "token not exists", 500)
 			return
 		}
-		if !strings.HasPrefix(key, "/gorelease/") {
-			http.Error(w, "key prefix must be /gorelease/", 500)
+		if !strings.HasPrefix(key, "gorelease/") {
+			http.Error(w, "key prefix must be gorelease/", 500)
 			return
 		}
 		parts := strings.Split(key, "/")
@@ -75,7 +75,7 @@ func main() {
 			return
 		}
 		hkey := "orgs:" + username + ":repos"
-		repoPath := parts[2] + "/" + parts[3]
+		repoPath := parts[1] + "/" + parts[2]
 		log.Println(repoPath)
 		if !rdx.HExists(hkey, repoPath).Val() {
 			http.Error(w, "repo is not ownered by this token, or not updated", 500)
